@@ -1,0 +1,23 @@
+{
+  "appName": "لوحة التحكم",
+  "themeLabel": "المظهر",
+  "languageLabel": "اللغة",
+  "layoutLabel": "التخطيط",
+  "sidebarLayout": "القائمة الجانبية",
+  "topbarLayout": "الشريط العلوي",
+  "english": "الإنجليزية",
+  "arabic": "العربية",
+  "nav": {
+    "workspace": "مساحة العمل",
+    "fullUnloadVan": "تفريغ الشحنات",
+    "setup": "الإعدادات العامة",
+    "marketplaces": "المتاجر",
+    "users": "المستخدمين",
+    "securityGroup": "مجموعات الأمان",
+    "settings": "الإعدادات",
+    "logout": "تسجيل الخروج"
+  },
+  "save": "حفظ",
+  "saved": "تم الحفظ بنجاح",
+  "saving": "جاري الحفظ..."
+}

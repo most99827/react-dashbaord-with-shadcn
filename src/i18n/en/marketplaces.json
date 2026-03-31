@@ -1,0 +1,15 @@
+{
+  "title": "Marketplaces",
+  "subtitle": "Manage your connected marketplaces",
+  "add": "Add Marketplace",
+  "edit": "Edit Marketplace",
+  "delete": "Delete Marketplace",
+  "table": {
+    "name": "Name",
+    "slug": "Slug",
+    "url": "URL",
+    "status": "Status",
+    "createdAt": "Created At",
+    "actions": "Actions"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "title": "Dashboard",
+  "intro": "Welcome to your new dashboard. This project is set up with Tailwind CSS, shadcn/ui, and React Router.",
+  "testAlertButton": "Test Alert Dialog",
+  "alertTitle": "Are you absolutely sure?",
+  "alertDescription": "This action cannot be undone. This will permanently delete your account and remove your data from our servers.",
+  "cancel": "Cancel",
+  "continue": "Continue"
+}

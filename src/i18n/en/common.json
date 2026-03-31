@@ -1,0 +1,23 @@
+{
+  "appName": "Dashboard",
+  "themeLabel": "Theme",
+  "languageLabel": "Language",
+  "layoutLabel": "Layout",
+  "sidebarLayout": "Sidebar Layout",
+  "topbarLayout": "Topbar Layout",
+  "english": "English",
+  "arabic": "العربية",
+  "nav": {
+    "workspace": "Workspace",
+    "fullUnloadVan": "Full Unload Van",
+    "setup": "Setup",
+    "marketplaces": "Marketplaces",
+    "users": "Users",
+    "securityGroup": "Security Group",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "save": "Save",
+  "saved": "Saved.",
+  "saving": "Saving..."
+}
