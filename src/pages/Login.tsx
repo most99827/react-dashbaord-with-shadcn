@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+﻿import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import axios from "axios"
 
@@ -12,10 +12,20 @@ import { useTranslations } from "@/i18n"
 import AuthLayout from "@/layouts/auth-layout"
 import { getPreferredTheme, persistTheme } from "@/lib/theme"
 
+type LocationState = {
+  from?: {
+    pathname?: string
+  }
+}
+
+function getRedirectTarget(location: ReturnType<typeof useLocation>): string {
+  return (location.state as LocationState | null)?.from?.pathname || "/dashboard"
+}
+
 export default function LoginPage() {
   const navigate = useNavigate()
   const location = useLocation()
-  const { login } = useAuth()
+  const { login, isAuthenticated, isLoading } = useAuth()
   const [theme, setTheme] = useState<"light" | "dark">(getPreferredTheme)
   const common = useTranslations("common")
   const auth = useTranslations("auth")
@@ -24,18 +34,19 @@ export default function LoginPage() {
     persistTheme(theme)
   }, [theme])
 
+  useEffect(() => {
+    if (!isLoading && isAuthenticated) {
+      navigate(getRedirectTarget(location), { replace: true })
+    }
+  }, [isAuthenticated, isLoading, location, navigate])
+
   async function handleLogin(credentials: {
     email: string
     password: string
     remember: boolean
   }) {
     await login(credentials)
-
-    const redirectTarget =
-      (location.state as { from?: { pathname?: string } } | null)?.from?.pathname ||
-      "/home"
-
-    navigate(redirectTarget, { replace: true })
+    navigate(getRedirectTarget(location), { replace: true })
   }
 
   function getErrorMessage(error: unknown) {
