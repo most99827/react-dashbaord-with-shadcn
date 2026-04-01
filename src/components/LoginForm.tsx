@@ -1,4 +1,4 @@
-﻿import { useState } from "react"
+import { useState } from "react"
 import { Eye, EyeOff, Lock, Mail } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -6,11 +6,9 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Spinner } from "@/components/ui/spinner"
-import type { AuthMessages, Locale } from "@/i18n"
+import { useLocale, useTranslations } from "@/i18n"
 
 type LoginFormProps = {
-  copy: AuthMessages
-  locale: Locale
   onSubmit: (credentials: {
     email: string
     password: string
@@ -26,11 +24,12 @@ type Errors = {
 }
 
 export default function LoginForm({
-  copy,
-  locale,
   onSubmit,
   getErrorMessage,
 }: LoginFormProps) {
+  const auth = useTranslations("auth")
+  const { locale } = useLocale()
+
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [remember, setRemember] = useState(true)
@@ -45,13 +44,13 @@ export default function LoginForm({
     const emailValue = email.trim()
 
     if (!emailValue) {
-      nextErrors.email = copy.requiredEmail
+      nextErrors.email = auth("requiredEmail")
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) {
-      nextErrors.email = copy.invalidEmail
+      nextErrors.email = auth("invalidEmail")
     }
 
     if (!password.trim()) {
-      nextErrors.password = copy.requiredPassword
+      nextErrors.password = auth("requiredPassword")
     }
 
     return nextErrors
@@ -84,7 +83,7 @@ export default function LoginForm({
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       <div className="space-y-2">
-        <Label htmlFor="email">{copy.email}</Label>
+        <Label htmlFor="email">{auth("email")}</Label>
         <div className="relative">
           <Mail
             className={`pointer-events-none absolute top-1/2 size-4 -translate-y-1/2 text-muted-foreground ${
@@ -97,7 +96,7 @@ export default function LoginForm({
             autoComplete="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            placeholder={copy.emailPlaceholder}
+            placeholder={auth("emailPlaceholder")}
             disabled={isSubmitting}
             className={`${isArabic ? "pr-10 pl-3" : "pl-10 pr-3"} h-11 rounded-xl border-white/50 bg-white/60 shadow-sm backdrop-blur-sm dark:border-white/10 dark:bg-white/5`}
           />
@@ -106,7 +105,7 @@ export default function LoginForm({
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="password">{copy.password}</Label>
+        <Label htmlFor="password">{auth("password")}</Label>
         <div className="relative">
           <Lock
             className={`pointer-events-none absolute top-1/2 size-4 -translate-y-1/2 text-muted-foreground ${
@@ -119,14 +118,14 @@ export default function LoginForm({
             autoComplete="current-password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
-            placeholder={copy.passwordPlaceholder}
+            placeholder={auth("passwordPlaceholder")}
             disabled={isSubmitting}
             className={`${isArabic ? "px-10" : "pl-10 pr-10"} h-11 rounded-xl border-white/50 bg-white/60 shadow-sm backdrop-blur-sm dark:border-white/10 dark:bg-white/5`}
           />
           <button
             type="button"
             onClick={() => setShowPassword((current) => !current)}
-            aria-label={showPassword ? copy.hidePassword : copy.showPassword}
+            aria-label={showPassword ? auth("hidePassword") : auth("showPassword")}
             className={`absolute top-1/2 -translate-y-1/2 text-muted-foreground transition hover:text-foreground ${
               isArabic ? "left-3" : "right-3"
             }`}
@@ -146,7 +145,7 @@ export default function LoginForm({
             disabled={isSubmitting}
           />
           <Label htmlFor="remember" className="text-sm font-normal">
-            {copy.rememberMe}
+            {auth("rememberMe")}
           </Label>
         </div>
       </div>
@@ -165,10 +164,10 @@ export default function LoginForm({
         {isSubmitting ? (
           <span className="inline-flex items-center gap-2">
             <Spinner className="size-4" />
-            {copy.submitting}
+            {auth("submitting")}
           </span>
         ) : (
-          copy.submit
+          auth("submit")
         )}
       </Button>
     </form>

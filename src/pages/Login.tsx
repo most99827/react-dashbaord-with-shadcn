@@ -8,7 +8,7 @@ import LanguageToggle from "@/components/LanguageToggle"
 import LoginForm from "@/components/LoginForm"
 import ThemeToggle from "@/components/ThemeToggle"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { useLocale, useTranslations } from "@/i18n"
+import { useTranslations } from "@/i18n"
 import AuthLayout from "@/layouts/auth-layout"
 import { getPreferredTheme, persistTheme } from "@/lib/theme"
 
@@ -17,7 +17,6 @@ export default function LoginPage() {
   const location = useLocation()
   const { login } = useAuth()
   const [theme, setTheme] = useState<"light" | "dark">(getPreferredTheme)
-  const { locale, toggleLocale } = useLocale()
   const common = useTranslations("common")
   const auth = useTranslations("auth")
 
@@ -41,14 +40,14 @@ export default function LoginPage() {
 
   function getErrorMessage(error: unknown) {
     if (axios.isAxiosError(error)) {
-      return error.response?.data?.message || error.response?.data?.error || auth.authError
+      return error.response?.data?.message || error.response?.data?.error || auth("authError")
     }
 
     if (error instanceof Error && error.message) {
       return error.message
     }
 
-    return auth.authError
+    return auth("authError")
   }
 
   return (
@@ -65,16 +64,12 @@ export default function LoginPage() {
           <>
             <ThemeToggle
               theme={theme}
-              label={common.themeLabel}
+              label={common("themeLabel")}
               onToggle={() =>
                 setTheme((current) => (current === "dark" ? "light" : "dark"))
               }
             />
-            <LanguageToggle
-              locale={locale}
-              copy={common}
-              onToggle={toggleLocale}
-            />
+            <LanguageToggle />
           </>
         }
       >
@@ -87,8 +82,6 @@ export default function LoginPage() {
             </CardHeader>
             <CardContent className="space-y-6">
               <LoginForm
-                copy={auth}
-                locale={locale}
                 onSubmit={handleLogin}
                 getErrorMessage={getErrorMessage}
               />

@@ -8,18 +8,18 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
   const t = useTranslations("settings")
 
   const navItems = [
-    { title: t.profile, href: "/settings/profile" },
-    { title: t.password, href: "/settings/password" },
-    // { title: t.twoFactor, href: "/settings/two-factor" },
-    { title: t.appearance, href: "/settings/appearance" },
+    { title: t("profile"), href: "/settings/profile" },
+    { title: t("password"), href: "/settings/password" },
+    // { title: t("twoFactor"), href: "/settings/two-factor" },
+    { title: t("appearance"), href: "/settings/appearance" },
   ]
 
   return (
     <div className="px-4 py-6">
       <div className="mb-6">
-        <h2 className="text-xl font-semibold tracking-tight">{t.title}</h2>
+        <h2 className="text-xl font-semibold tracking-tight">{t("title")}</h2>
         <p className="text-sm text-muted-foreground mt-1">
-          {t.subtitle}
+          {t("subtitle")}
         </p>
       </div>
 

@@ -38,10 +38,10 @@ export default function MarketplacesPage() {
       if (editingMarketplace) {
         const id = editingMarketplace.id ?? editingMarketplace.marketplace_id ?? 0
         await updateMarketplaceApi(id, payload)
-        toast.success(common.saved)
+        toast.success(common("saved"))
       } else {
         await createMarketplaceApi(payload)
-        toast.success(common.saved)
+        toast.success(common("saved"))
       }
       setRefreshKey((v) => v + 1)
       handleCancel()
@@ -57,7 +57,7 @@ export default function MarketplacesPage() {
     try {
       const id = marketplace.id ?? marketplace.marketplace_id ?? 0
       await deleteMarketplaceApi(id)
-      toast.success(common.saved)
+      toast.success(common("saved"))
       setRefreshKey((v) => v + 1)
     } catch (err: any) {
       toast.error(err.response?.data?.message || "Failed to delete.")
@@ -68,7 +68,7 @@ export default function MarketplacesPage() {
     try {
       const id = marketplace.id ?? marketplace.marketplace_id ?? 0
       await toggleMarketplaceStatusApi(id)
-      toast.success(common.saved)
+      toast.success(common("saved"))
       setRefreshKey((v) => v + 1)
     } catch (err: any) {
       toast.error(err.response?.data?.message || "Failed to update status.")
@@ -78,12 +78,12 @@ export default function MarketplacesPage() {
   const columns: ServerDataTableColumn<Marketplace>[] = [
     { 
       data: "name", 
-      title: t.table.name,
+      title: t("table.name"),
       render: (row) => row.name || row.marketplace_name || "Unnamed" 
     },
     { 
       data: "url", 
-      title: t.table.url,
+      title: t("table.url"),
       render: (row) => row.url || row.marketplace_url || "-"
     },
     { 
@@ -93,7 +93,7 @@ export default function MarketplacesPage() {
     },
     {
       data: "status",
-      title: t.table.status,
+      title: t("table.status"),
       sortable: false,
       render: (row) => {
         const isActive = Number(row.status) === 1 || row.status === true
@@ -112,12 +112,12 @@ export default function MarketplacesPage() {
     },
     {
       data: "created_at",
-      title: t.table.createdAt,
+      title: t("table.createdAt"),
       render: (row) => row.created_at ? new Date(row.created_at).toLocaleDateString() : "-",
     },
     {
       data: null,
-      title: t.table.actions,
+      title: t("table.actions"),
       className: "text-center",
       headerClassName: "text-center",
       render: (marketplace) => {
@@ -168,7 +168,7 @@ export default function MarketplacesPage() {
               }
               description={
                 <>
-                  {t.delete}: <strong>{marketplace.name || marketplace.marketplace_name}</strong>?
+                  {t("delete")}: <strong>{marketplace.name || marketplace.marketplace_name}</strong>?
                 </>
               }
               onContinue={() => void handleDelete(marketplace)}
@@ -180,12 +180,12 @@ export default function MarketplacesPage() {
   ]
 
   return (
-    <AppLayout breadcrumbs={[{ title: t.title, href: "/marketplaces" }]}>
+    <AppLayout breadcrumbs={[{ title: t("title"), href: "/marketplaces" }]}>
       <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-semibold">{t.title}</h2>
-            <p className="text-sm text-muted-foreground mt-1">{t.subtitle}</p>
+          <h2 className="text-2xl font-semibold">{t("title")}</h2>
+            <p className="text-sm text-muted-foreground mt-1">{t("subtitle")}</p>
           </div>
           <Button
             onClick={() => {
@@ -194,14 +194,14 @@ export default function MarketplacesPage() {
               setTimeout(() => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" }), 100)
             }}
           >
-            <Plus className="mr-2 h-4 w-4" /> {t.add}
+            <Plus className="mr-2 h-4 w-4" /> {t("add")}
           </Button>
         </div>
 
         <ServerDataTable<Marketplace>
           prefix="/entity/marketplace"
           columns={columns}
-          title={t.title}
+          title={t("title")}
           searchPlaceholder="Search..."
           refreshKey={refreshKey}
         />

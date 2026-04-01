@@ -41,7 +41,7 @@ export function AppHeader({ breadcrumbs = [] }: { breadcrumbs?: BreadcrumbItemTy
   const translateItems = (items: any[]): any[] => {
     return items.map((item) => ({
       ...item,
-      title: common.nav[item.id as keyof typeof common.nav] || item.id,
+      title: common(`nav.${item.id}`),
       items: item.items ? translateItems(item.items) : undefined,
     }))
   }

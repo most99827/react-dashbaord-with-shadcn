@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 
 import { useAuth } from "@/auth/useAuth"
 import { UserInfo, type AppUser } from "./UserInfo"
+import { useTranslations } from "@/i18n"
 import {
   DropdownMenuGroup,
   DropdownMenuItem,
@@ -12,6 +13,7 @@ import {
 
 export function UserMenuContent({ user }: { user: AppUser }) {
   const { logout } = useAuth()
+  const common = useTranslations("common")
 
   async function handleLogout() {
     await logout()
@@ -30,14 +32,14 @@ export function UserMenuContent({ user }: { user: AppUser }) {
         <DropdownMenuItem asChild>
           <Link to="/settings/profile" className="block w-full cursor-pointer">
             <Settings className="mr-2" />
-            Settings
+            {common("nav.settings")}
           </Link>
         </DropdownMenuItem>
       </DropdownMenuGroup>
       <DropdownMenuSeparator />
       <DropdownMenuItem onSelect={() => void handleLogout()} className="cursor-pointer">
         <LogOut className="mr-2" />
-        Log out
+        {common("nav.logout")}
       </DropdownMenuItem>
     </>
   )

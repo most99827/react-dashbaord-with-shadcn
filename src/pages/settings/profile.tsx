@@ -34,17 +34,17 @@ export default function Profile() {
   }
 
   return (
-    <AppLayout breadcrumbs={[{ title: t.profile, href: "/settings/profile" }]}>
+    <AppLayout breadcrumbs={[{ title: t("profile"), href: "/settings/profile" }]}>
       <SettingsLayout>
         <div className="space-y-6">
           <HeadingSmall
-            title={t.profileInfo}
-            description={t.profileDescription}
+            title={t("profileInfo")}
+            description={t("profileDescription")}
           />
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid gap-2">
-              <Label htmlFor="name">{t.name}</Label>
+              <Label htmlFor="name">{t("name")}</Label>
               <Input
                 id="name"
                 defaultValue={String(user?.name ?? "")}
@@ -54,7 +54,7 @@ export default function Profile() {
             </div>
 
             <div className="grid gap-2">
-              <Label htmlFor="email">{t.email}</Label>
+              <Label htmlFor="email">{t("email")}</Label>
               <Input
                 id="email"
                 type="email"
@@ -66,11 +66,11 @@ export default function Profile() {
 
             <div className="flex items-center gap-4 pt-2">
               <Button disabled={loading}>
-                {loading ? t.saving : t.save}
+                {loading ? t("saving") : t("save")}
               </Button>
               {success && (
                 <p className="text-sm text-muted-foreground animate-in fade-in slide-in-from-start-2">
-                  {t.saved}
+                  {t("saved")}
                 </p>
               )}
             </div>
@@ -79,11 +79,11 @@ export default function Profile() {
 
         <div className="space-y-6 pt-6">
           <HeadingSmall
-            title={t.deleteAccount}
-            description={t.deleteAccountDescription}
+            title={t("deleteAccount")}
+            description={t("deleteAccountDescription")}
           />
           <Button variant="destructive" className="mt-2">
-            {t.deleteAccount}
+            {t("deleteAccount")}
           </Button>
         </div>
       </SettingsLayout>

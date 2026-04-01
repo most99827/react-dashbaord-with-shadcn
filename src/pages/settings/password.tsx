@@ -32,17 +32,17 @@ export default function Password() {
   }
 
   return (
-    <AppLayout breadcrumbs={[{ title: t.password, href: "/settings/password" }]}>
+    <AppLayout breadcrumbs={[{ title: t("password"), href: "/settings/password" }]}>
       <SettingsLayout>
         <div className="space-y-6">
           <HeadingSmall
-            title={t.updatePassword}
-            description={t.updatePasswordDescription}
+            title={t("updatePassword")}
+            description={t("updatePasswordDescription")}
           />
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid gap-2">
-              <Label htmlFor="current_password">{t.password}</Label>
+              <Label htmlFor="current_password">{t("password")}</Label>
               <Input
                 id="current_password"
                 type="password"
@@ -52,7 +52,7 @@ export default function Password() {
             </div>
 
             <div className="grid gap-2">
-              <Label htmlFor="new_password">{t.password}</Label>
+              <Label htmlFor="new_password">{t("password")}</Label>
               <Input
                 id="new_password"
                 type="password"
@@ -62,7 +62,7 @@ export default function Password() {
             </div>
 
             <div className="grid gap-2">
-              <Label htmlFor="confirm_password">{t.password}</Label>
+              <Label htmlFor="confirm_password">{t("password")}</Label>
               <Input
                 id="confirm_password"
                 type="password"
@@ -73,11 +73,11 @@ export default function Password() {
 
             <div className="flex items-center gap-4 pt-2">
               <Button disabled={loading}>
-                {loading ? t.saving : t.save}
+                {loading ? t("saving") : t("save")}
               </Button>
               {success && (
                 <p className="text-sm text-muted-foreground animate-in fade-in slide-in-from-start-2">
-                  {t.saved}
+                  {t("saved")}
                 </p>
               )}
             </div>

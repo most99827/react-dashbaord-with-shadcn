@@ -1,4 +1,4 @@
-﻿import React, { useState } from "react"
+import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 import InputError from "@/components/input-error"
@@ -32,8 +32,8 @@ export default function Login() {
         navigate("/home")
       } else {
         setErrors({
-          username: data.username !== "admin" ? auth.authError : "",
-          password: data.password !== "password" ? auth.authError : "",
+          username: data.username !== "admin" ? auth("authError") : "",
+          password: data.password !== "password" ? auth("authError") : "",
         })
       }
       setProcessing(false)
@@ -42,13 +42,13 @@ export default function Login() {
 
   return (
     <AuthLayout
-      title={auth.loginTitle}
-      description={auth.loginDescription}
+      title={auth("loginTitle")}
+      description={auth("loginDescription")}
     >
       <form onSubmit={submit} className="flex flex-col gap-6">
         <div className="grid gap-6">
           <div className="grid gap-2">
-            <Label htmlFor="username">{auth.username}</Label>
+            <Label htmlFor="username">{auth("username")}</Label>
             <Input
               id="username"
               type="text"
@@ -57,7 +57,7 @@ export default function Login() {
               autoFocus
               tabIndex={1}
               autoComplete="username"
-              placeholder={auth.usernamePlaceholder}
+              placeholder={auth("usernamePlaceholder")}
               value={data.username}
               onChange={(e) => setData({ ...data, username: e.target.value })}
             />
@@ -66,13 +66,13 @@ export default function Login() {
 
           <div className="grid gap-2">
             <div className="flex items-center">
-              <Label htmlFor="password">{auth.password}</Label>
+              <Label htmlFor="password">{auth("password")}</Label>
               <TextLink
                 to="/forgot-password"
                 className="ml-auto text-sm"
                 tabIndex={5}
               >
-                {auth.forgotPassword}
+                {auth("forgotPassword")}
               </TextLink>
             </div>
             <Input
@@ -82,7 +82,7 @@ export default function Login() {
               required
               tabIndex={2}
               autoComplete="current-password"
-              placeholder={auth.passwordPlaceholder}
+              placeholder={auth("passwordPlaceholder")}
               value={data.password}
               onChange={(e) => setData({ ...data, password: e.target.value })}
             />
@@ -97,7 +97,7 @@ export default function Login() {
               checked={data.remember}
               onCheckedChange={(checked) => setData({ ...data, remember: !!checked })}
             />
-            <Label htmlFor="remember">{auth.rememberMe}</Label>
+            <Label htmlFor="remember">{auth("rememberMe")}</Label>
           </div>
 
           <Button
@@ -108,14 +108,14 @@ export default function Login() {
             data-test="login-button"
           >
             {processing && <Spinner />}
-            {auth.submit}
+            {auth("submit")}
           </Button>
         </div>
 
         <div className="text-center text-sm text-muted-foreground">
-          {auth.noAccount}{" "}
+          {auth("noAccount")}{" "}
           <TextLink to="/register" tabIndex={5}>
-            {auth.signUp}
+            {auth("signUp")}
           </TextLink>
         </div>
       </form>

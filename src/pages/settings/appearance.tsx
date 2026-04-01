@@ -23,30 +23,30 @@ export default function Appearance() {
   const common = useTranslations("common")
 
   const appearanceTabs = [
-    { value: 'light', icon: Sun, label: t.light || 'Light' },
-    { value: 'dark', icon: Moon, label: t.dark || 'Dark' },
-    { value: 'system', icon: Monitor, label: t.system || 'System' },
+    { value: 'light', icon: Sun, label: t('light') },
+    { value: 'dark', icon: Moon, label: t('dark') },
+    { value: 'system', icon: Monitor, label: t('system') },
   ] as const
 
   const layoutTabs = [
-    { value: 'sidebar', icon: Columns2, label: t.sidebar || 'Sidebar' },
-    { value: 'header', icon: PanelTop, label: t.header || 'Header' },
+    { value: 'sidebar', icon: Columns2, label: t('sidebar') },
+    { value: 'header', icon: PanelTop, label: t('header') },
   ] as const
 
   const languageTabs = [
-    { value: 'en', icon: Languages, label: common.english },
-    { value: 'ar', icon: Languages, label: common.arabic },
+    { value: 'en', icon: Languages, label: common('english') },
+    { value: 'ar', icon: Languages, label: common('arabic') },
   ] as const
 
   return (
-    <AppLayout breadcrumbs={[{ title: t.appearanceSettings, href: "/settings/appearance" }]}>
+    <AppLayout breadcrumbs={[{ title: t('appearanceSettings'), href: "/settings/appearance" }]}>
       <SettingsLayout>
         <div className="space-y-10">
 
           <div className="space-y-6">
             <HeadingSmall
-              title={t.appearanceSettings}
-              description={t.appearanceDescription}
+              title={t('appearanceSettings')}
+              description={t('appearanceDescription')}
             />
 
             <div className="inline-flex gap-1 rounded-lg bg-neutral-100 p-1 dark:bg-neutral-800">
@@ -70,8 +70,8 @@ export default function Appearance() {
 
           <div className="space-y-6">
             <HeadingSmall
-              title={t.layoutSettings}
-              description={t.layoutDescription}
+              title={t('layoutSettings')}
+              description={t('layoutDescription')}
             />
 
             <div className="inline-flex gap-1 rounded-lg bg-neutral-100 p-1 dark:bg-neutral-800">
@@ -95,8 +95,8 @@ export default function Appearance() {
 
           <div className="space-y-6">
             <HeadingSmall
-              title={t.languageSettings}
-              description={t.languageDescription}
+              title={t('languageSettings')}
+              description={t('languageDescription')}
             />
 
             <div className="inline-flex gap-1 rounded-lg bg-neutral-100 p-1 dark:bg-neutral-800">

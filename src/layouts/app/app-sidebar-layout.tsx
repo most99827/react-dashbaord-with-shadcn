@@ -1,5 +1,4 @@
 import type { ReactNode } from "react"
-import { cn } from "@/lib/utils"
 
 import { AppContent } from "./app-content.tsx"
 import { AppShell } from "./app-shell.tsx"
