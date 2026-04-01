@@ -16,6 +16,7 @@ type AuthContextType = {
   user: AuthUser | null
   isAuthenticated: boolean
   isLoading: boolean
+  isBootstrapping: boolean
   login: (credentials: LoginCredentials) => Promise<void>
   logout: () => Promise<void>
   refreshAuth: () => Promise<AuthUser | null>
@@ -53,7 +54,8 @@ function extractUser(payload: unknown): AuthUser | null {
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
+  const [isBootstrapping, setIsBootstrapping] = useState(true)
 
   const clearAuthState = useCallback(() => {
     setUser(null)
@@ -111,11 +113,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     let isSubscribed = true
 
     async function bootstrapAuth() {
-      setIsLoading(true)
+      setIsBootstrapping(true)
       await refreshAuth()
 
       if (isSubscribed) {
-        setIsLoading(false)
+        setIsBootstrapping(false)
       }
     }
 
@@ -124,6 +126,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const handleUnauthorized = () => {
       clearAuthState()
       setIsLoading(false)
+      setIsBootstrapping(false)
     }
 
     window.addEventListener(AUTH_UNAUTHORIZED_EVENT, handleUnauthorized)
@@ -139,11 +142,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       user,
       isAuthenticated: Boolean(user),
       isLoading,
+      isBootstrapping,
       login,
       logout,
       refreshAuth,
     }),
-    [user, isLoading, login, logout, refreshAuth],
+    [user, isLoading, isBootstrapping, login, logout, refreshAuth],
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

@@ -22,10 +22,41 @@ function getRedirectTarget(location: ReturnType<typeof useLocation>): string {
   return (location.state as LocationState | null)?.from?.pathname || "/dashboard"
 }
 
+function extractApiErrorMessage(payload: unknown): string | null {
+  if (!payload || typeof payload !== "object") return null
+
+  const data = payload as Record<string, unknown>
+
+  if (typeof data.message === "string" && data.message.trim()) {
+    return data.message
+  }
+
+  if (typeof data.error === "string" && data.error.trim()) {
+    return data.error
+  }
+
+  if (Array.isArray(data.data) && data.data.length > 0) {
+    const first = data.data[0]
+    if (typeof first === "string" && first.trim()) {
+      return first
+    }
+  }
+
+  const errors = data.errors
+  if (errors && typeof errors === "object") {
+    const firstList = Object.values(errors as Record<string, unknown>)[0]
+    if (Array.isArray(firstList) && firstList.length > 0 && typeof firstList[0] === "string") {
+      return firstList[0]
+    }
+  }
+
+  return null
+}
+
 export default function LoginPage() {
   const navigate = useNavigate()
   const location = useLocation()
-  const { login, isAuthenticated, isLoading } = useAuth()
+  const { login, isAuthenticated, isBootstrapping } = useAuth()
   const [theme, setTheme] = useState<"light" | "dark">(getPreferredTheme)
   const common = useTranslations("common")
   const auth = useTranslations("auth")
@@ -35,10 +66,10 @@ export default function LoginPage() {
   }, [theme])
 
   useEffect(() => {
-    if (!isLoading && isAuthenticated) {
+    if (!isBootstrapping && isAuthenticated) {
       navigate(getRedirectTarget(location), { replace: true })
     }
-  }, [isAuthenticated, isLoading, location, navigate])
+  }, [isAuthenticated, isBootstrapping, location, navigate])
 
   async function handleLogin(credentials: {
     email: string
@@ -51,7 +82,8 @@ export default function LoginPage() {
 
   function getErrorMessage(error: unknown) {
     if (axios.isAxiosError(error)) {
-      return error.response?.data?.message || error.response?.data?.error || auth("authError")
+      const message = extractApiErrorMessage(error.response?.data)
+      return message || auth("authError")
     }
 
     if (error instanceof Error && error.message) {

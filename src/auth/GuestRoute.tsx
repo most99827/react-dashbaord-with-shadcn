@@ -10,9 +10,9 @@ type LocationState = {
 
 export default function GuestRoute() {
   const location = useLocation()
-  const { isAuthenticated, isLoading } = useAuth()
+  const { isAuthenticated, isBootstrapping } = useAuth()
 
-  if (isLoading) {
+  if (isBootstrapping) {
     return null
   }
 

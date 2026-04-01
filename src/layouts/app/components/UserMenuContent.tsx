@@ -1,5 +1,5 @@
-import { LogOut, Settings } from "lucide-react"
-import { Link } from "react-router-dom"
+﻿import { LogOut, Settings } from "lucide-react"
+import { Link, useNavigate } from "react-router-dom"
 
 import { useAuth } from "@/auth/useAuth"
 import { UserInfo, type AppUser } from "./UserInfo"
@@ -14,10 +14,14 @@ import {
 export function UserMenuContent({ user }: { user: AppUser }) {
   const { logout } = useAuth()
   const common = useTranslations("common")
+  const navigate = useNavigate()
 
   async function handleLogout() {
-    await logout()
-    window.location.assign("/login")
+    try {
+      await logout()
+    } finally {
+      navigate("/login", { replace: true })
+    }
   }
 
   return (

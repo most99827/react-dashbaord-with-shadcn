@@ -4,9 +4,9 @@ import { useAuth } from "./useAuth"
 
 export default function ProtectedRoute() {
   const location = useLocation()
-  const { isAuthenticated, isLoading } = useAuth()
+  const { isAuthenticated, isBootstrapping } = useAuth()
 
-  if (isLoading) {
+  if (isBootstrapping) {
     return null
   }
 
