@@ -3,13 +3,12 @@ import { useLocation, useNavigate } from "react-router-dom"
 import axios from "axios"
 
 import { useAuth } from "@/auth/useAuth"
-import AppLogoIcon from "@/layouts/app/components/app-logo-icon"
 import LanguageToggle from "@/components/LanguageToggle"
 import LoginForm from "@/components/LoginForm"
 import ThemeToggle from "@/components/ThemeToggle"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { useTranslations } from "@/i18n"
 import AuthLayout from "@/layouts/auth-layout"
+import AppLogoIcon from "@/layouts/app/components/app-logo-icon"
 import { getPreferredTheme, persistTheme } from "@/lib/theme"
 
 type LocationState = {
@@ -94,15 +93,19 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[radial-gradient(circle_at_top_left,_rgba(11,92,255,0.16),_transparent_28%),radial-gradient(circle_at_bottom_right,_rgba(16,185,129,0.12),_transparent_24%),linear-gradient(180deg,_#f8fafc_0%,_#eef2ff_100%)] text-foreground transition-colors duration-300 dark:bg-[radial-gradient(circle_at_top_left,_rgba(56,189,248,0.16),_transparent_24%),radial-gradient(circle_at_bottom_right,_rgba(99,102,241,0.18),_transparent_26%),linear-gradient(180deg,_#020617_0%,_#0f172a_100%)]">
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute left-[8%] top-[10%] h-52 w-52 rounded-full bg-sky-400/15 blur-3xl dark:bg-sky-400/10" />
-        <div className="absolute bottom-[12%] right-[8%] h-64 w-64 rounded-full bg-emerald-400/15 blur-3xl dark:bg-indigo-500/10" />
-      </div>
-
+    <main className="h-dvh overflow-hidden bg-slate-50 text-foreground transition-colors dark:bg-slate-950">
       <AuthLayout
-        title=""
-        description=""
+        title={
+          <>
+            <span className="mb-2 flex justify-center">
+              <span className="flex size-9 items-center justify-center rounded-lg bg-slate-900 text-white shadow-sm dark:bg-white dark:text-slate-900">
+                <AppLogoIcon className="size-5 fill-current" />
+              </span>
+            </span>
+            <span>{auth("loginTitle")}</span>
+          </>
+        }
+        description={auth("loginDescription")}
         actions={
           <>
             <ThemeToggle
@@ -116,21 +119,7 @@ export default function LoginPage() {
           </>
         }
       >
-        <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
-          <Card className="border-white/50 bg-white/55 shadow-2xl shadow-slate-900/5 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/40 dark:shadow-black/20">
-            <CardHeader className="pb-4 text-center">
-              <div className="mx-auto flex size-12 items-center justify-center rounded-2xl bg-slate-950 text-white shadow-lg shadow-slate-950/20 dark:bg-white dark:text-slate-950">
-                <AppLogoIcon className="size-7 fill-current" />
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <LoginForm
-                onSubmit={handleLogin}
-                getErrorMessage={getErrorMessage}
-              />
-            </CardContent>
-          </Card>
-        </div>
+        <LoginForm onSubmit={handleLogin} getErrorMessage={getErrorMessage} />
       </AuthLayout>
     </main>
   )

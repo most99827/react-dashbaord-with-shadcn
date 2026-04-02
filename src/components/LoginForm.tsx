@@ -1,8 +1,8 @@
-import { useState } from "react"
+﻿import { useState } from "react"
 import { Eye, EyeOff, Lock, Mail } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
+// import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Spinner } from "@/components/ui/spinner"
@@ -12,7 +12,7 @@ type LoginFormProps = {
   onSubmit: (credentials: {
     email: string
     password: string
-    remember: boolean
+    // remember: boolean
   }) => Promise<void>
   getErrorMessage: (error: unknown) => string
 }
@@ -32,7 +32,7 @@ export default function LoginForm({
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [remember, setRemember] = useState(true)
+  // const [remember, setRemember] = useState(true)
   const [showPassword, setShowPassword] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [errors, setErrors] = useState<Errors>({})
@@ -71,7 +71,7 @@ export default function LoginForm({
       await onSubmit({
         email: email.trim(),
         password,
-        remember,
+        // remember,
       })
     } catch (error) {
       setErrors({ form: getErrorMessage(error) })
@@ -86,9 +86,8 @@ export default function LoginForm({
         <Label htmlFor="email">{auth("email")}</Label>
         <div className="relative">
           <Mail
-            className={`pointer-events-none absolute top-1/2 size-4 -translate-y-1/2 text-muted-foreground ${
-              isArabic ? "right-3" : "left-3"
-            }`}
+            className={`pointer-events-none absolute top-1/2 z-10 size-4 -translate-y-1/2 text-slate-500 dark:text-slate-400 ${isArabic ? "right-3" : "left-3"
+              }`}
           />
           <Input
             id="email"
@@ -108,9 +107,8 @@ export default function LoginForm({
         <Label htmlFor="password">{auth("password")}</Label>
         <div className="relative">
           <Lock
-            className={`pointer-events-none absolute top-1/2 size-4 -translate-y-1/2 text-muted-foreground ${
-              isArabic ? "right-3" : "left-3"
-            }`}
+            className={`pointer-events-none absolute top-1/2 z-10 size-4 -translate-y-1/2 text-slate-500 dark:text-slate-400 ${isArabic ? "right-3" : "left-3"
+              }`}
           />
           <Input
             id="password"
@@ -126,9 +124,8 @@ export default function LoginForm({
             type="button"
             onClick={() => setShowPassword((current) => !current)}
             aria-label={showPassword ? auth("hidePassword") : auth("showPassword")}
-            className={`absolute top-1/2 -translate-y-1/2 text-muted-foreground transition hover:text-foreground ${
-              isArabic ? "left-3" : "right-3"
-            }`}
+            className={`absolute top-1/2 z-10 -translate-y-1/2 text-slate-500 transition hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 ${isArabic ? "left-3" : "right-3"
+              }`}
           >
             {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
           </button>
@@ -136,7 +133,7 @@ export default function LoginForm({
         {errors.password ? <p className="text-xs text-destructive">{errors.password}</p> : null}
       </div>
 
-      <div className="flex items-center rounded-xl border border-white/40 bg-white/45 px-3 py-2 dark:border-white/10 dark:bg-white/5">
+      {/* <div className="flex items-center rounded-xl border border-white/40 bg-white/45 px-3 py-2 dark:border-white/10 dark:bg-white/5">
         <div className="flex items-center gap-3">
           <Checkbox
             id="remember"
@@ -148,28 +145,30 @@ export default function LoginForm({
             {auth("rememberMe")}
           </Label>
         </div>
-      </div>
+    </div> */}
 
-      {errors.form ? (
-        <p className="rounded-xl border border-destructive/20 bg-destructive/10 px-3 py-2 text-sm text-destructive">
-          {errors.form}
-        </p>
-      ) : null}
+      {
+    errors.form ? (
+      <p className="rounded-xl border border-destructive/20 bg-destructive/10 px-3 py-2 text-sm text-destructive">
+        {errors.form}
+      </p>
+    ) : null
+  }
 
-      <Button
-        type="submit"
-        disabled={isSubmitting}
-        className="h-11 w-full rounded-xl bg-slate-950 text-white shadow-lg shadow-slate-950/15 transition-all hover:bg-slate-800 disabled:pointer-events-none disabled:opacity-70 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"
-      >
-        {isSubmitting ? (
-          <span className="inline-flex items-center gap-2">
-            <Spinner className="size-4" />
-            {auth("submitting")}
-          </span>
-        ) : (
-          auth("submit")
-        )}
-      </Button>
-    </form>
+  <Button
+    type="submit"
+    disabled={isSubmitting}
+    className="h-11 w-full rounded-xl bg-slate-950 text-white shadow-lg shadow-slate-950/15 transition-all hover:bg-slate-800 disabled:pointer-events-none disabled:opacity-70 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"
+  >
+    {isSubmitting ? (
+      <span className="inline-flex items-center gap-2">
+        <Spinner className="size-4" />
+        {auth("submitting")}
+      </span>
+    ) : (
+      auth("submit")
+    )}
+  </Button>
+    </form >
   )
 }
